@@ -25,6 +25,7 @@
     const scrollTopBtn = document.getElementById('scrollTop');
     const statGrades = document.getElementById('statGrades');
     const statTopics = document.getElementById('statTopics');
+    const themeToggle = document.getElementById('themeToggle');
 
     // ── State ──
     let activeGradeId = null;
@@ -32,6 +33,7 @@
 
     // ── Init ──
     function init() {
+        initTheme();
         populateStats();
         buildSidebar();
         attachEvents();
@@ -42,6 +44,39 @@
             const grade = MATH_DATA.find(g => g.id === id);
             if (grade) selectGrade(grade);
         }
+    }
+
+    // ── Theme ──
+    function initTheme() {
+        const saved = localStorage.getItem('mathnavTheme');
+        if (saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            // Light is default — ensure no attribute
+            document.documentElement.removeAttribute('data-theme');
+        }
+        updateThemeIcons();
+    }
+
+    function toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('mathnavTheme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('mathnavTheme', 'dark');
+        }
+        updateThemeIcons();
+    }
+
+    function updateThemeIcons() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const sunIcon = themeToggle.querySelector('.icon-sun');
+        const moonIcon = themeToggle.querySelector('.icon-moon');
+        // In dark mode, show sun (to switch to light). In light mode, show moon (to switch to dark).
+        sunIcon.style.display = isDark ? 'block' : 'none';
+        moonIcon.style.display = isDark ? 'none' : 'block';
     }
 
     // ── Stats ──
@@ -142,6 +177,9 @@
         sidebarClose.addEventListener('click', closeSidebar);
         sidebarOverlay.addEventListener('click', closeSidebar);
 
+        // Theme toggle
+        themeToggle.addEventListener('click', toggleTheme);
+
         // Breadcrumb home
         breadcrumb.addEventListener('click', (e) => {
             if (e.target.classList.contains('breadcrumb-home')) {
@@ -180,7 +218,6 @@
         });
 
         // Scroll to top
-        const mainContent = document.getElementById('mainContent');
         window.addEventListener('scroll', () => {
             scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
         });
@@ -311,7 +348,7 @@
         const before = text.slice(0, idx);
         const match = text.slice(idx, idx + query.length);
         const after = text.slice(idx + query.length);
-        return `${before}<mark style="background:var(--accent-glow);color:var(--accent);border-radius:3px;padding:0 2px;">${match}</mark>${after}`;
+        return `${before}<mark style="background:var(--mark-bg);color:var(--mark-color);border-radius:4px;padding:1px 3px;">${match}</mark>${after}`;
     }
 
     // ── Render topic cards ──
