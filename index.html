@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A comprehensive math curriculum navigator covering topics from Early Math through Calculus, organized by grade level and course.">
+    <title>Math Topics Navigator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">∑</span>
+                <span class="logo-text">MathNav</span>
+            </div>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">✕</button>
+        </div>
+        <div class="sidebar-search">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search topics..." autocomplete="off">
+                <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+            </div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav">
+            <!-- Populated by JS -->
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content" id="mainContent">
+        <header class="top-bar">
+            <button class="hamburger" id="hamburger" aria-label="Open sidebar">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="breadcrumb" id="breadcrumb">
+                <span class="breadcrumb-home">All Grades</span>
+            </div>
+        </header>
+
+        <!-- Hero / Landing -->
+        <section class="hero" id="hero">
+            <div class="hero-bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <h1 class="hero-title">Math Topics Navigator</h1>
+            <p class="hero-subtitle">Explore a comprehensive math curriculum from Kindergarten through College-level Calculus and beyond. Select a grade or course from the sidebar to get started.</p>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-number" id="statGrades">0</span>
+                    <span class="stat-label">Courses</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statTopics">0</span>
+                    <span class="stat-label">Topics</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grade content area -->
+        <section class="grade-content" id="gradeContent" style="display:none;">
+            <div class="grade-header">
+                <h2 class="grade-title" id="gradeTitle"></h2>
+                <span class="topic-count-badge" id="topicCountBadge"></span>
+            </div>
+            <div class="topics-grid" id="topicsGrid">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Search results area -->
+        <section class="search-results" id="searchResults" style="display:none;">
+            <div class="grade-header">
+                <h2 class="grade-title" id="searchTitle">Search Results</h2>
+                <span class="topic-count-badge" id="searchCountBadge"></span>
+            </div>
+            <div class="topics-grid" id="searchGrid">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Scroll to top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
